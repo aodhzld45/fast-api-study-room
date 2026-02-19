@@ -33,5 +33,5 @@ class Review(Base):
     rating: Mapped[float] = mapped_column(Integer, nullable=False)
     comment: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    room = relationship("StudyRoom", back_populates="reviews")
-    student = relationship("Student", back_populates="reviews")
+    # room = relationship("StudyRoom", back_populates="reviews")
+    # student = relationship("Student", back_populates="reviews")

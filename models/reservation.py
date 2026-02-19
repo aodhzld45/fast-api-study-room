@@ -57,6 +57,6 @@ class Reservation(Base):
     cancel_date: Mapped[object | None] = mapped_column(Date, nullable=True)
 
     # relationships
-    student = relationship("Student", lazy="selectin")
-    room = relationship("StudyRoom", lazy="selectin")
-    facility = relationship("Facility", lazy="selectin")
+    # student = relationship("Student", lazy="selectin")
+    # room = relationship("StudyRoom", lazy="selectin")
+    # facility = relationship("Facility", lazy="selectin")

@@ -30,5 +30,5 @@ class ReservationDisable(Base):
     disable_start_at: Mapped[object] = mapped_column(DateTime, nullable=False)
     disable_end_at: Mapped[object] = mapped_column(DateTime, nullable=False)
 
-    room = relationship("StudyRoom")
-    facility = relationship("Facility")
+    # room = relationship("StudyRoom")
+    # facility = relationship("Facility")
