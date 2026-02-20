@@ -1,3 +1,4 @@
+from typing import TYPE_CHECKING
 from sqlalchemy import (
     BigInteger,
     Boolean,
@@ -11,6 +12,11 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from configs.db import Base
+
+if TYPE_CHECKING:
+    from models.student import Student
+    from models.study_room import StudyRoom
+    from models.facility import Facility
 
 class Reservation(Base):
     __tablename__ = "reservation"
@@ -57,6 +63,6 @@ class Reservation(Base):
     cancel_date: Mapped[object | None] = mapped_column(Date, nullable=True)
 
     # relationships
-    # student = relationship("Student", lazy="selectin")
-    # room = relationship("StudyRoom", lazy="selectin")
-    # facility = relationship("Facility", lazy="selectin")
+    student: Mapped["Student"] = relationship("Student", lazy="selectin")
+    room: Mapped["StudyRoom"] = relationship("StudyRoom", lazy="selectin")
+    facility: Mapped["Facility"] = relationship("Facility", lazy="selectin")
