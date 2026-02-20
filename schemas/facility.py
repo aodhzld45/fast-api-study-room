@@ -1,8 +1,7 @@
 # /schemas/facility.py
-from __future__ import annotations
 
 from datetime import datetime
-from typing import Optional, List
+from typing import List
 
 from pydantic import BaseModel, Field, ConfigDict
 

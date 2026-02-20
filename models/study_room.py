@@ -1,8 +1,11 @@
 from sqlalchemy import BigInteger, Boolean, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import TIMESTAMP
-
 from configs.db import Base
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from models.facility import Facility
 
 class StudyRoom(Base):
     __tablename__ = "study_room"
@@ -46,5 +49,7 @@ class StudyRoom(Base):
         server_default=func.now(),
     )
 
-    # 관계: Facility 쪽에도 relationship 걸면 양방향 가능
-    facility_item = relationship("Facility", lazy="selectin")
+    facility: Mapped["Facility"] = relationship(
+        "Facility", 
+        back_populates="study_room_items"
+    )

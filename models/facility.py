@@ -1,10 +1,12 @@
-from __future__ import annotations
-
+from typing import TYPE_CHECKING
 from sqlalchemy import BigInteger, Boolean, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 
 from configs.db import Base
+
+if TYPE_CHECKING:
+    from models.study_room import StudyRoom 
 
 class Facility(Base):
     __tablename__ = "facility"
@@ -38,5 +40,8 @@ class Facility(Base):
         server_default=func.now(),
     )
     
-    
-study_room_item = relationship("StudyRoom", lazy="selectin")
+    study_room_items: Mapped[list["StudyRoom"]] = relationship(
+        "StudyRoom", 
+        back_populates="facility", 
+        lazy="selectin"
+    )
