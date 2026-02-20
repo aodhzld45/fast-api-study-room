@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from sqlalchemy import BigInteger, Boolean, String, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 
 from configs.db import Base
@@ -37,3 +37,6 @@ class Facility(Base):
         nullable=False,
         server_default=func.now(),
     )
+    
+    
+study_room = relationship("StudyRoom", lazy="selectin")
