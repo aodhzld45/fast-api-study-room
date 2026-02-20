@@ -47,4 +47,4 @@ class StudyRoom(Base):
     )
 
     # 관계: Facility 쪽에도 relationship 걸면 양방향 가능
-    facility = relationship("Facility", lazy="selectin")
+    facility_item = relationship("Facility", lazy="selectin")

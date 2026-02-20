@@ -1,12 +1,10 @@
-# app/schemas/facility.py
+# /schemas/facility.py
 from __future__ import annotations
 
 from datetime import datetime
 from typing import Optional, List
 
 from pydantic import BaseModel, Field, ConfigDict
-
-
 
 class FacilityBase(BaseModel):
     facility_name: str = Field(..., max_length=100)
@@ -27,10 +25,6 @@ class FacilityCreateResponse(BaseModel):
     facility_id: int
     message: str = "created"
 
-
-# -------------------------
-# Detail
-# -------------------------
 class FacilityDetailResponse(BaseModel):
     """GET /facilities/{id} 응답"""
     model_config = ConfigDict(from_attributes=True)

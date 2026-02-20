@@ -1,5 +1,4 @@
-# app/routers/facility_router.py
-from __future__ import annotations
+# routers/facility_router.py
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession

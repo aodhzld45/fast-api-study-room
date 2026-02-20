@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from routers.student_router import router as student_router
 from routers.auth_router import router as auth_router
 from routers.facility_router import router as facility_router
+from routers.study_room_router import router as study_room_router
 
 import models
 
@@ -22,6 +23,7 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(student_router)
 app.include_router(auth_router)
 app.include_router(facility_router)
+app.include_router(study_room_router)
 
 @app.get("/health/db")
 async def health_db():

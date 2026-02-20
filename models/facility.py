@@ -39,4 +39,4 @@ class Facility(Base):
     )
     
     
-study_room = relationship("StudyRoom", lazy="selectin")
+study_room_item = relationship("StudyRoom", lazy="selectin")
