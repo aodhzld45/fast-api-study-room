@@ -34,6 +34,20 @@ async def create_reservation(
         payload,
         current_user.student_id, 
     )
+    
+@router.get(
+    "/me",
+    response_model=ReservationListResponse,
+    summary="내 예약 목록 조회",
+)
+async def get_my_reservations(
+    db: AsyncSession = Depends(get_db),
+    current_user: Student = Depends(get_current_user),
+):
+    return await reservation_service.list_by_student(
+        db,
+        current_user.student_id, 
+    )
 
 @router.get(
     "/{reservation_id}",
@@ -48,19 +62,7 @@ async def get_reservation_detail(
     return await reservation_service.detail(db, reservation_id)
 
 
-@router.get(
-    "/me",
-    response_model=ReservationListResponse,
-    summary="내 예약 목록 조회",
-)
-async def get_my_reservations(
-    db: AsyncSession = Depends(get_db),
-    current_user: Student = Depends(get_current_user),
-):
-    return await reservation_service.list_by_student(
-        db,
-        current_user.student_id, 
-    )
+
 
 @router.patch(
     "/{reservation_id}/cancel",
