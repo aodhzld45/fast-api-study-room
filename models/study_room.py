@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from models.facility import Facility
+    from models.review import Review
 
 class StudyRoom(Base):
     __tablename__ = "study_room"
@@ -49,7 +50,13 @@ class StudyRoom(Base):
         server_default=func.now(),
     )
 
-    facility: Mapped["Facility"] = relationship(
+    facility_item: Mapped["Facility"] = relationship(
         "Facility", 
         back_populates="study_room_items"
+    )
+    
+    review_items: Mapped[list["Review"]] = relationship(
+        "Review",
+        back_populates="room",
+        cascade="all, delete-orphan",
     )

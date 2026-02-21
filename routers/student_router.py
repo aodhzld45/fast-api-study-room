@@ -7,7 +7,7 @@ from models.student import Student
 from dependencies import get_current_user
 # from services.auth_service import student_service
 
-router = APIRouter(prefix="/student" ,tags=["Login"])
+router = APIRouter(prefix="/student" ,tags=["ME"])
 
 @router.get("/me", response_model=StudentDetail)
 async def get_me(

@@ -3,6 +3,7 @@ from typing import Optional, List
 
 from pydantic import BaseModel, Field, ConfigDict
 from schemas.facility import FacilityDetailResponse
+from schemas.review import ReviewListItemResponse
 
 class StudyRoomBase(BaseModel):
     facility_id: int
@@ -26,6 +27,7 @@ class StudyRoomDetail(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
     facility_item: FacilityDetailResponse
+    review_items: List[ReviewListItemResponse] = []    
     
     room_id: int
     facility_id: int
@@ -35,6 +37,9 @@ class StudyRoomDetail(BaseModel):
     room_capacity: int
     room_equipment: Optional[str]
     use_tf: bool
+    
+    average_rating: float = 0.0
+    review_count: int = 0
 
     reg_date: datetime
     up_date: datetime
@@ -47,11 +52,16 @@ class StudyRoomListItemResponse(BaseModel):
     facility_id: int
     
     facility_item: FacilityDetailResponse
+    review_items: List[ReviewListItemResponse] = []    
+
     room_name: str
     room_floor: str
     room_capacity: int
     room_equipment: str
     use_tf: bool
+    
+    average_rating: float = 0.0
+    review_count: int = 0
 
 class StudyRoomListResponse(BaseModel):
     items: List[StudyRoomListItemResponse]

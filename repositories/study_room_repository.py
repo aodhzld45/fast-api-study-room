@@ -3,10 +3,11 @@ from __future__ import annotations
 
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
-# from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload
 from sqlalchemy.orm import joinedload
 
 from models.study_room import StudyRoom
+from models.review import Review
 
 class StudyRoomRepository:
     async def save(self, db: AsyncSession, study_room: StudyRoom) -> StudyRoom:
@@ -26,7 +27,10 @@ class StudyRoomRepository:
         # 1. 기본 쿼리: 특정 시설(facility_id)의 데이터는 무조건 가져옴
         stmt = (
             select(StudyRoom)
-            .options(joinedload(StudyRoom.facility_item)) 
+            .options(
+                joinedload(StudyRoom.facility_item),
+                selectinload(StudyRoom.review_items) 
+                ) 
             .where(StudyRoom.facility_id == facility_id)
         )
         
@@ -45,7 +49,17 @@ class StudyRoomRepository:
         stmt = stmt.order_by(StudyRoom.room_id.desc())
 
         res = await db.execute(stmt)
-        return res.scalars().all()
+        rooms = res.scalars().all()
+        for room in rooms:
+            if room.review_items:
+                room.average_rating = round(sum(r.rating for r in room.review_items) / len(room.review_items), 1)
+                room.review_count = len(room.review_items)
+
+            else:
+                room.average_rating = 0.0
+                room.review_count = 0
+
+        return rooms
 
     async def count_all(self, db: AsyncSession) -> int:
         stmt = select(func.count()).select_from(StudyRoom)

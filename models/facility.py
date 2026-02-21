@@ -42,6 +42,6 @@ class Facility(Base):
     
     study_room_items: Mapped[list["StudyRoom"]] = relationship(
         "StudyRoom", 
-        back_populates="facility", 
+        back_populates="facility_item", 
         lazy="selectin"
     )
